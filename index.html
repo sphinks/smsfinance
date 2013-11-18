@@ -19,6 +19,7 @@
     <div data-role="page" id="one" >
         <div data-role="header" data-position="fixed" >
             <h1>Multi-page application</h1>
+            <a href="#two" data-role="button" data-icon="plus">Add</a> 
         </div><!-- /header -->
 
         <div data-role="content" >
@@ -40,9 +41,12 @@
             <p>
                 <a href="#two" data-role="button">Show page "two"</a>
             </p>
-            <p>
-                <a href="#popup" data-role="button" data-rel="dialog"
+            <!-- <p>
+                <a href="popup.html" data-role="button" data-rel="dialog"
                     data-transition="pop">Show page "popup" (as a dialog)</a>
+            </p>  -->
+            <p><a href="createRule.html" data-role="button" data-rel="page"
+                    data-transition="pop">Sms Wizard</a>
             </p>
         </div><!-- /content -->
 
@@ -80,34 +84,6 @@
             <h4>Page Footer</h4>
         </div><!-- /footer -->
     </div><!-- /page two -->
-
-    <!-- Start of third page: #popup -->
-    <div data-role="page" id="popup" >
-        <div data-role="header" >
-            <h1>Dialog</h1>
-        </div><!-- /header -->
-
-        <div data-role="content" >
-            <h2>Popup</h2>
-            <p>
-                I have an id of "popup" on my page container and only look like a
-                dialog because the link to me had a
-                <code>data-rel="dialog"</code>
-                attribute which gives me this inset look and a
-                <code>data-transition="pop"</code>
-                attribute to change the transition to pop. Without this, I'd be
-                styled as a normal page.
-            </p>
-            <p>
-                <a href="#one" data-rel="back" data-role="button" data-inline="true"
-                    data-icon="back">Back to page "one"</a>
-            </p>
-        </div><!-- /content -->
-
-        <div data-role="footer" data-position="fixed" >
-            <h4>Page Footer</h4>
-        </div><!-- /footer -->
-    </div><!-- /page popup -->
 
 </body>
 </html>
