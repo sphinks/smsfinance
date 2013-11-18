@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<!-- Start of third page: #popup -->
+    <div data-role="page" id="popup" >
+        <div data-role="header" >
+            <h1>Dialog</h1>
+        </div><!-- /header -->
+
+        <div data-role="content" >
+            <h2>Popup</h2>
+            <p>
+                I have an id of "popup" on my page container and only look like a
+                dialog because the link to me had a
+                <code>data-rel="dialog"</code>
+                attribute which gives me this inset look and a
+                <code>data-transition="pop"</code>
+                attribute to change the transition to pop. Without this, I'd be
+                styled as a normal page.
+            </p>
+            <p>
+                <a href="#one" data-rel="back" data-role="button" data-inline="true"
+                    data-icon="back">Back to page "one"</a>
+            </p>
+        </div><!-- /content -->
+
+        <div data-role="footer" data-position="fixed" >
+            <h4>Page Footer</h4>
+        </div><!-- /footer -->
+    </div><!-- /page popup -->
+
+</body>
+</html>

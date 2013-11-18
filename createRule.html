@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Create parsing rule master</title>
+<link rel="stylesheet" href="./css/jquery.mobile-1.2.0.css"/>
+    <script type="text/javascript" src="./js/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="./js/jquery.mobile-1.2.0.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+	<!-- Start of first page: #chooseSmsThread -->
+    <div data-role="page" id="chooseSmsThread" >
+        <div data-role="header" >
+        	<a href="#one" data-rel="back" data-role="button" data-inline="true"
+                    data-icon="back">Back</a>
+            <h1>Dialog</h1>
+        </div><!-- /header -->
+
+        <div data-role="content" >
+            <h2>Select sms thread</h2>
+            <ul data-role="listview" data-inset="true" data-filter="false" id="messageList">
+            	
+            </ul>
+        </div><!-- /content -->
+    </div><!-- /first page -->
+    
+    <script>
+    	$('#chooseSmsThread').load(function() {
+    	//tizen.messaging.getMessageServices("messaging.sms",
+    	//        serviceListCB,
+    	//        errorCallback);
+    		console.log('loaded');
+    	});
+    
+    $( "#messageList" ).bind( "load", function() {
+    	console.log('loaded1');
+    	});
+    	
+    $(document).ready(function() {
+    	console.log('init');
+    	});
+    
+    </script>
+
+</body>
+</html>
