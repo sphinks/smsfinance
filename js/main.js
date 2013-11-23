@@ -1,107 +1,68 @@
-//Initialize function
-var init = function () {
-    // TODO:: Do your initialization job
-    console.log("init() called");
+/*
+ *      Copyright 2013  Samsung Electronics Co., Ltd
+ *
+ *      Licensed under the Flora License, Version 1.1 (the "License");
+ *      you may not use this file except in compliance with the License.
+ *      You may obtain a copy of the License at
+ *
+ *              http://floralicense.org/license/
+ *
+ *      Unless required by applicable law or agreed to in writing, software
+ *      distributed under the License is distributed on an "AS IS" BASIS,
+ *      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *      See the License for the specific language governing permissions and
+ *      limitations under the License.
+ */
 
-    // add eventListener for tizenhwkey
-    document.addEventListener('tizenhwkey', function(e) {
-        if(e.keyName == "back")
-            tizen.application.getCurrentApplication().exit();
-    });
-    
-//    var appControl = new tizen.ApplicationControl("http://tizen.org/appcontrol/operation/compose", null, null, null,
-//            [new tizen.ApplicationControlData("http://tizen.org/appcontrol/data/to", ["+7894"])]);
-//
-//    tizen.application.launchAppControl(
-//             appControl,
-//             "tizen.smsmessages",
-//             function() {console.log("launch application control succeed"); },
-//             function(e) {console.log("launch application control failed. reason: " + e.message); },
-//             null );
-    console.log("run");
+/*global $, tizen, App */
+var app = null;
 
-    $('#chooseSmsThread').load(function() {
-    	//tizen.messaging.getMessageServices("messaging.sms",
-    	//        serviceListCB,
-    	//        errorCallback);
-    	console.log('loaded');
-    });
-    
-    $( "#messageList" ).bind( "load", function() {
-    	console.log('loaded1');
-    	});
-    
-};
-$(document).ready(init);
+(function () { // strict mode wrapper
+	'use strict';
 
-var MyApp = {};
+	({
+		/**
+		 * Loader init - load the App constructor
+		 */
+		init: function init() {
+			var self = this;
+			$.getScript('js/app.js')
+				.done(function () {
+					// once the app is loaded, create the app object
+					// and load the libraries
+					app = new App();
+					self.loadLibs();
+					//setEvents();
+				})
+				.fail(this.onGetScriptError);
+		},
 
-var smsService;
-//Define the success callback.
-var messageSentCallback = function(recipients) {
-  console.log("Message sent successfully to " + recipients.length + " recipients.");
-}
+		/**
+		 * Load dependencies
+		 */
+		loadLibs: function loadLibs() {
+			var loadedLibs = 0;
+			if ($.isArray(app.requires)) {
+				$.each(app.requires, function (index, filename) {
+					$.getScript(filename)
+						.done(function () {
+							loadedLibs += 1;
+							if (loadedLibs >= app.requires.length) {
+								// All dependencies are loaded - initialise the app
+								app.init();
+								//app.model.init();
+							}
+						})
+						.fail(this.onGetScriptError);
+				});
+			}
+		},
 
-// Define the error callback.
-function errorCallback(err) {
-  console.log(err.name + " error: " + err.message);
-}
-	
-// Define success callback
-function successCallback() {
-  console.log("Messages were updated");
-}
-
-//Define success callback
-function loadMessageBody(message) {
-	console.log ("body for message: " + message.subject + "from: " + message.from + " loaded.");
-  //console.log("Message body: " + message.body);
-}
-
-function messageArrayCB(messages) {
-	console.log('Messages: ' + messages.length);
-	//console.log('Messages: ' + messages[0]);
-	loadListOfSms(messages)
-	/*for (i = 0; i < messages.length; i++) {
-		message = messages[i];
-		console.log ("body for message: " + message.subject + "from: " + message.from + " loaded.");
-		console.log('Messages: ' + message.body.plainBody);
-		
-		
-		
-	}*/
- }
-
-function loadListOfSms(messages) {
-	
-	for (i = 0; i < messages.length; i++) {
-		message = messages[i];
-		console.log ("body for message: " + message.subject + "from: " + message.from + " loaded.");
-		console.log('Messages: ' + message.body.plainBody);
-		liCode = '<li><a href="#"><p>From: ' + message.from + '</p>' +
-        '<p>Subject: ' + message.subject + '</p>' +
-        '<p>' + message.body.plainBody + '</p></a></li>';
-	    $('#messageList').append(liCode);
-	}
-	
-	
-	
-}
-
-function serviceListCB(services) {
-
-  MyApp.smsService = services[0];
-  /* Set the attribute filter */
-  var filter = new tizen.AttributeFilter("from");
-      
-  //console.log(smsService.messageStorage.findMessages(filter, messageSentCallback, errorCallback));
-  
-  //var filter = new tizen.AttributeFilter('isRead', 'EXACTLY', false);
-  //MyApp.smsService.messageStorage.findConversations(filter, messageArrayCB);
-  MyApp.smsService.messageStorage.findMessages(
-          new tizen.AttributeFilter("type", "EXACTLY", "messaging.sms"),
-          messageArrayCB);
-}
-	
-
-
+		/**
+		 * Handle ajax errors
+		 */
+		onGetScriptError: function onGetScriptError(e, jqxhr, setting, exception) {
+			console.error('An error occurred: ' + e.message);
+		}
+	}).init(); // run the loader
+}());

@@ -11,6 +11,8 @@
     <script type="text/javascript" src="./js/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="./js/jquery.mobile-1.2.0.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/app.ui.events.js"></script>
+    <script type="text/javascript" src="./js/app.ui.js"></script>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -45,8 +47,8 @@
                 <a href="popup.html" data-role="button" data-rel="dialog"
                     data-transition="pop">Show page "popup" (as a dialog)</a>
             </p>  -->
-            <p><a href="createRule.html" data-role="button" data-rel="page"
-                    data-transition="pop">Sms Wizard</a>
+            <p><a href="#chooseSmsThread" data-role="button" data-rel="page"
+                    data-transition="pop" id="createRuleButton">Sms Wizard</a>
             </p>
         </div><!-- /content -->
 
@@ -84,6 +86,24 @@
             <h4>Page Footer</h4>
         </div><!-- /footer -->
     </div><!-- /page two -->
+    
+    <!-- Start of first page: #chooseSmsThread -->
+    <div data-role="page" id="chooseSmsThread" >
+        <div data-role="header" >
+        	<a href="#one" data-rel="back" data-role="button" data-inline="true"
+                    data-icon="back">Back</a>
+            <a href="#refresh" data-role="button" data-inline="true"
+                    data-icon="back">Refresh</a>
+            <h1>Dialog</h1>
+        </div><!-- /header -->
+
+        <div data-role="content" >
+            <h2>Select sms thread</h2>
+            <ul data-role="listview" data-inset="true" id="messageList">
+            	
+            </ul>
+        </div><!-- /content -->
+    </div><!-- /first page -->
 
 </body>
 </html>
