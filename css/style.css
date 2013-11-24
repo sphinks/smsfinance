@@ -1,2 +1,40 @@
-body {
+#chat .ui-li {
+	min-height: 23px;
+}
+
+.ui-listview .ui-li-bubble-right {
+	margin-left: 50px;
+}
+
+.ui-listview .ui-li-bubble-left {
+	margin-right: 50px;
+}
+
+.ui-listview .ui-li-bubble-right label {
+	display:none;
+}
+
+.ui-listview .ui-li-bubble-left label {
+	position: absolute;
+	top: 0px;
+	left: 38px;
+	color: #6666B6;
+	padding: 0 5px;
+	background: #F8F6EF;
+	line-height: 12px;
+	font-size: 12px;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px white;
+	border-radius: 0 0 7px 7px;
+}
+
+.ui-listview-workaround {
+	margin: -1px;
+}
+
+.callerName {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+		width: 90%;
 }

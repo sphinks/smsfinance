@@ -6,9 +6,7 @@
 function Model() {
 	'use strict';
 
-	this.addressBook = tizen.contact.getDefaultAddressBook();
 	this.smsService = null;
-	this.phoneNumbersFilter = new tizen.AttributeFilter('phoneNumbers.number', 'EXISTS');
 	this.messagesList = {};
 	this.contactsLoaded = null;
 	this.init();
@@ -19,7 +17,6 @@ function Model() {
 	Model.prototype = {
 
 		init: function () {
-			this.loadContacts();
 			this.initSmsService();
 		},
 
@@ -29,7 +26,7 @@ function Model() {
 				tizen.messaging.getMessageServices("messaging.sms",
 					function (s) {
 						self.smsService = s[0];
-						self.prepareMessages(app.fillUpMessagePage.bind(self));
+						self.loadMessages(app.fillUpMessagePage.bind(self));
 						self.messagesChangeListener();
 					}
 				);
@@ -56,35 +53,6 @@ function Model() {
 			this.smsService.messageStorage.addMessagesChangeListener(messageChangeCallback);
 		},
 
-		prepareMessages: function (callback) {
-			var self = this;
-			try {
-				this.smsService.messageStorage.findMessages(
-					new tizen.AttributeFilter("type", "EXACTLY", "messaging.sms"),
-					function (messages) {
-						function compare(a, b) {
-							if (a.timestamp > b.timestamp) {
-								return -1;
-							} else if (a.timestamp < b.timestamp) {
-								return 1;
-							} else {
-								return 0;
-							}
-						}
-						messages.sort(compare);
-						self.messagesList = self.groupMessages(messages);
-						app.ui.loadCallerList();
-						callback();
-					},
-					function () {
-						console.error('prepareMessage: error');
-					}
-				);
-			} catch (err) {
-				console.error(err);
-			}
-		},
-		
 		loadMessages: function (callback) {
 			var self = this;
 			try {
@@ -183,44 +151,5 @@ function Model() {
 			}
 			return name || number;
 		},
-
-		setRead: function (message) {
-			message.isRead = true;
-			this.smsService.messageStorage.updateMessages([message]);
-		},
-
-		sendMessage: function (number, text, callback) {
-			var message;
-			callback = callback || new Function();
-
-			message = new tizen.Message("messaging.sms", {plainBody: text, to: [number]});
-			try {
-				this.smsService.sendMessage(message, callback, function (e) {
-					console.error(e);
-					callback();
-					alert("Cannot send message\n" + e.name +  ": "+ e.message);
-				});
-			} catch (error) {
-				console.error(error.message);
-			}
-		},
-
-		loadContacts: function Model_loadContacts(callback) {
-			var contactsFoundCB, errorCB;
-
-			this.contactsLoaded = null;
-
-			contactsFoundCB = function (contacts) {
-				this.contactsLoaded = contacts;
-				if (callback != null)
-					callback();
-			};
-
-			errorCB = function (error) {
-				console.error('Model_loadContacts, problem with find() method: ' + error.message);
-			};
-
-			this.addressBook.find(contactsFoundCB.bind(this), errorCB);
-		}
 	};
 }());

@@ -60,31 +60,8 @@ function Ui() {
 			//this.checkChatSendButtonState();
 		},
 
-		scrollToBottom: function (noCorrection) {
-			var talk = $("#chat-content .ui-scrollview-view"),
-				heightDiff = talk.height() - talk.parent().height();
-			noCorrection = noCorrection || false;
-			if (heightDiff > 0) {
-				setTimeout(function () {
-					$('#chat-content').scrollview('scrollTo', 100, -99999, 500);
-				}, 300);
-			}
-			if (!noCorrection) {
-				setTimeout(function () {
-					app.ui.scrollToBottom(true);
-				}, 200);
-			}
-			$('.ui-overflow-indicator-bottom').css('opacity', 0);
-		},
-
 		setChatTitle: function Ui_setChatTitle(title) {
 			$('#chat-title').html(title);
-		},
-
-		resetTextAreas: function Ui_resetTextAreas() {
-			$('#text').val('');
-			$("input[name='number']").val('');
-			$("#enterNumberCreate").addClass('ui-disabled');
 		},
 
 		setChatCounterValue: function Ui_setChatCounterValue() {
@@ -109,35 +86,7 @@ function Ui() {
 			obj.parent().next().find('.counter p')
 				.text(charLeft + '/' + numberOfMessages);
 		},
-
-		checkChatSendButtonState: function Ui_checkChatSendButtonState() {
-			if (app.helpers.checkStringLength($('#text').val())) {
-				$('#send')
-					.css({
-						'pointer-events': 'auto',
-						'color': '#000'
-					})
-					.removeClass('ui-disabled');
-			} else {
-				$('#send').css({'pointer-events': 'none', 'color': '#bbb'}).addClass('ui-disabled');
-			}
-		},
-
-		clearSendButton: function () {
-			$(".ui-btn-down-s").removeClass('ui-btn-down-s');
-		},
-
-		resetPages: function () {
-			this.resetTextAreas();
-			this.setChatCounterValue();
-			this.checkChatSendButtonState();
-		},
-
-		clearChatList: function () {
-			$('#chat-title').html('');
-			$('#message-chat').empty();
-		},
-
+		
 		clearCallerList: function () {
 			return $('#messageList').empty();
 		},
@@ -148,31 +97,6 @@ function Ui() {
 			app.setCurrentNumber(element.attr('phone'));
 			app.setCurrentCaller(element.attr('caller'));
 			$.mobile.changePage('#chat');
-		},
-
-		fillContactList: function Ui_fillContactList(sortedContactList) {
-			var i, ul = $("#contactSelect-list").empty(),
-				len, listElement, self = this;
-
-			len = sortedContactList.length;
-
-			for (i = 0; i < len; i += 1) {
-				listElement = this.templateManager.get('contactRow', {
-					'number': sortedContactList[i].number,
-					'callerName': sortedContactList[i].caller
-				});
-
-				if (app.helpers.validateNumberLength(sortedContactList[i].number)) {
-					ul.append(listElement);
-				}
-			}
-
-			$('li.ui-li-has-multiline', ul).on('tap', function (event) {
-				app.ui.onCallerListElementTap(event, $(this));
-			});
-
-			ul.trigger('create');
-			ul.listview('refresh');
 		},
 
 		loadCallerList: function () {
@@ -201,22 +125,13 @@ function Ui() {
 					}
 				}
 			}
-			console.log(ul.html());
 			ul.listview('refresh');
-		},
-
-		createChatByNumber: function () {
-			var phone = $("input[name='number']");
-			app.setCurrentNumber(phone.val());
-			app.setCurrentCaller(app.model.getNameByNumber(phone.val()));
-			$.mobile.changePage('#chat');
 		},
 
 		showMessageChat: function () {
 			var listedDay = null, ul, i, date, data,
 				key = app.getCurrentNumber(), messages;
 
-			app.ui.resetPages();
 			$('#chat-title').html(app.getCurrentCaller());
 			ul = $('#message-chat').empty();
 
@@ -236,36 +151,28 @@ function Ui() {
 						'minutes': app.helpers.addZeroBefore(date.getMinutes())
 					};
 
-					if (!messages[i].isRead) {
-						app.model.setRead(messages[i]);
-					}
-
 					ul.append(app.ui.templateManager.get('normalBubble', data));
 				}
 				ul.listview('refresh');
 				app.ui.scrollToBottom();
 			}
 		},
-
-		changeMessageStatus: function (message, loop) {
-			var warning = $('#' + message.id + ' .warning'),
-				classes, i, self = this;
-			loop = loop + 1 || 0;
-			if (warning.length === 1) {
-				classes = warning.attr('class').split(' ');
-				for(var i in classes) {
-					if (classes.hasOwnProperty(i)) {
-						if (/status([A-Z]*)/.test(classes[i])) {
-							warning.removeClass(classes[i]);
-						}
-					}
-				}
-				warning.addClass('status' + message.messageStatus);
-			} else if (loop < 3) {
+		
+		scrollToBottom: function (noCorrection) {
+			var talk = $("#chat-content .ui-scrollview-view"),
+				heightDiff = talk.height() - talk.parent().height();
+			noCorrection = noCorrection || false;
+			if (heightDiff > 0) {
 				setTimeout(function () {
-					self.changeMessageStatus(message, loop)
-				}, 1000);
+					$('#chat-content').scrollview('scrollTo', 100, -99999, 500);
+				}, 300);
 			}
+			if (!noCorrection) {
+				setTimeout(function () {
+					app.ui.scrollToBottom(true);
+				}, 200);
+			}
+			$('.ui-overflow-indicator-bottom').css('opacity', 0);
 		},
 
 		showChatPage: function Ui_showChatPage() {

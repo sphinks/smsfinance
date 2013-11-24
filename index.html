@@ -87,7 +87,7 @@
         </div><!-- /footer -->
     </div><!-- /page two -->
     
-    <!-- Start of first page: #chooseSmsThread -->
+    <!-- Start of page: #chooseSmsThread -->
     <div data-role="page" id="chooseSmsThread" >
         <div data-role="header" >
         	<a href="#one" data-rel="back" data-role="button" data-inline="true"
@@ -97,13 +97,31 @@
             <h1>Dialog</h1>
         </div><!-- /header -->
 
-        <div data-role="content" >
+        <div data-role="smsThread-content" >
             <h2>Select sms thread</h2>
             <ul data-role="listview" data-inset="true" id="messageList">
             	
             </ul>
         </div><!-- /content -->
-    </div><!-- /first page -->
+    </div><!-- /end of page -->
+    
+    <!-- Start of page: #chat -->
+    <div data-role="page" id="chat" >
+        <div data-role="header" >
+        	<a href="#chooseSmsThread" data-rel="back" data-role="button" data-inline="true"
+                    data-icon="back">Back</a>
+            <a href="#refresh" data-role="button" data-inline="true"
+                    data-icon="back">Refresh</a>
+            <h1 id="chat-title">Dialog</h1>
+        </div><!-- /header -->
+
+        <div data-role="content" >
+            <h2>Select sms</h2>
+            <ul data-role="listview" data-inset="true" id="message-chat">
+            	
+            </ul>
+        </div><!-- /content -->
+    </div><!-- /end page -->
 
 </body>
 </html>

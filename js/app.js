@@ -84,19 +84,18 @@ var App = null;
 			var application = tizen.application.getCurrentApplication();
 			application.exit();
 		},
-
-		loadContacts: function App_loadContacts() {
-			this.model.loadContacts(this.showContactSelectPage.bind(this));
-		},
 		
 		loadMessage: function App_loadMessage() {
 			this.model.loadMessages();
 		},
 
-		sendMessage: function App_sendMessage(text, numbers) {
-			this.model.sendMessage(numbers, text,
-				app.model.prepareMessages.bind(app.model, app.ui.showMessageChat)
-			);
+		fillUpMessagePage: function () {
+			/*if ($.mobile.activePage.attr('id') === 'main') {
+				this.ui.loadCallerList();
+			} else {
+				this.ui.showMessageChat();
+			}*/
+			this.ui.showMessageChat();
 		}
 	};
 }());

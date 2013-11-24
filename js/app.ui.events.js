@@ -28,10 +28,22 @@ function UiEvents(parent) {
 			var self = this;
 			
 			$('#createRuleButton').click(function() {
-		    	
+//				console.log('Try to read: test');
+//				var item = window.localStorage.getItem( 'item_name');
+//				console.log('Read: ' + item);
 		    	app.loadMessage();
-		    	console.log('clicked');
 		    });
+			
+			$('#chat').on('pageshow', function () {
+				app.fillUpMessagePage();
+			});
+			
+			$('#messageList').on('tap', 'li.ui-li-has-multiline', function (event) {
+				self.ui.onCallerListElementTap(event, $(this));
+//				console.log('clicked');
+//				console.log('Try to save: test');
+//				window.localStorage.setItem( 'item_name', 'test12');
+			});
 
 			document.addEventListener('tizenhwkey', function (e) {
 				if (e.keyName === 'back') {
