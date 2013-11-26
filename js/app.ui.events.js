@@ -38,8 +38,16 @@ function UiEvents(parent) {
 				app.fillUpMessagePage();
 			});
 			
-			$('#messageList').on('tap', 'li.ui-li-has-multiline', function (event) {
-				self.ui.onCallerListElementTap(event, $(this));
+			$('#splitMessageInWords').on('pageshow', function () {
+				app.splitMessage();
+			});
+			
+			$('#message-chat').on('tap', 'li', function () {
+				self.ui.onMessageListElementTap(event, $(this));
+			});
+			
+			$('#smsThreadList').on('tap', 'li.ui-li-has-multiline', function (event) {
+				self.ui.onSmsThreadListElementTap(event, $(this));
 //				console.log('clicked');
 //				console.log('Try to save: test');
 //				window.localStorage.setItem( 'item_name', 'test12');

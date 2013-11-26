@@ -87,21 +87,33 @@ function Ui() {
 				.text(charLeft + '/' + numberOfMessages);
 		},
 		
-		clearCallerList: function () {
-			return $('#messageList').empty();
+		clearSmsThreadList: function () {
+			return $('#smsThreadList').empty();
+		},
+		
+		clearWordsList: function () {
+			return $('#splitSms').empty();
 		},
 
-		onCallerListElementTap: function (event, element) {
+		onSmsThreadListElementTap: function (event, element) {
 			event.preventDefault();
 			event.stopPropagation();
 			app.setCurrentNumber(element.attr('phone'));
 			app.setCurrentCaller(element.attr('caller'));
 			$.mobile.changePage('#chat');
 		},
+		
+		onMessageListElementTap: function (event, element) {
+			event.preventDefault();
+			event.stopPropagation();
+			app.setCurrentMessage(element.attr('id'));
+			$.mobile.changePage('#splitMessageInWords');
+			console.log(element.attr('id'));
+		},
 
-		loadCallerList: function () {
+		loadSmsThreadList: function () {
 			var ul, i, date, caller, message;
-			ul = this.clearCallerList();
+			ul = this.clearSmsThreadList();
 			for (i in app.model.messagesList) {
 				if (app.model.messagesList.hasOwnProperty(i)) {
 					caller = '';
@@ -156,6 +168,14 @@ function Ui() {
 				ul.listview('refresh');
 				app.ui.scrollToBottom();
 			}
+		},
+		
+		showSplitMessage: function () {
+			
+			var element = this.clearWordsList();
+			console.log(app.getCurrentMessage());
+			var message = app.model.getMessageById(app.getCurrentMessage());
+			element.html(message.body.plainBody);
 		},
 		
 		scrollToBottom: function (noCorrection) {

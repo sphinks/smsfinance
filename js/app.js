@@ -13,6 +13,7 @@ var App = null;
 	App = function App() {
 		this.currentNumber = null;
 		this.currentCaller = null;
+		this.currentMessage = null;
 	};
 
 	App.prototype = {
@@ -77,6 +78,14 @@ var App = null;
 			return this.currentCaller;
 		},
 		
+		setCurrentMessage: function App_setCurrentMessage(message) {
+			this.currentMessage = message;
+		},
+
+		getCurrentMessage: function App_getCurrentMessage() {
+			return this.currentMessage;
+		},
+		
 		/**
 		 * exit application action
 		 */
@@ -87,6 +96,10 @@ var App = null;
 		
 		loadMessage: function App_loadMessage() {
 			this.model.loadMessages();
+		},
+		
+		splitMessage: function App_splitMessage() {
+			this.ui.showSplitMessage();
 		},
 
 		fillUpMessagePage: function () {

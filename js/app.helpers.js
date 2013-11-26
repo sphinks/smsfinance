@@ -69,7 +69,7 @@ function Helpers() {
 			}
 			return todayString;
 		},
-
+		
 		/**
 		 * Extracts full name from contact object
 		 * @param {contact} contact The contact object.

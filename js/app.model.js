@@ -70,7 +70,7 @@ function Model() {
 						}
 						messages.sort(compare);
 						self.messagesList = self.groupMessages(messages);
-						app.ui.loadCallerList();
+						app.ui.loadSmsThreadList();
 						//callback();
 					},
 					function () {
@@ -133,7 +133,25 @@ function Model() {
 		getMessages: function () {
 			return this.messagesList;
 		},
-
+		
+		getMessageById: function(messageId) {
+			var messages,i;
+			messages = this.messagesList[app.getCurrentCaller()].messages;
+			i = messages.length;
+			console.log("Messages: " + i);
+			while ((i -= 1) >= 0) {
+				if (messages[i].id === messageId) {
+					console.log("Message: " + messages[i]);
+					return messages[i];
+				}
+			}
+		},
+		
+		getSplitMessage: function() {
+			var message = getMessageById(app.getCurrentMessage());
+			return message;
+		},
+		
 		getNameByNumber: function (number) {
 			var i, j, contact, name;
 			for (i in this.contactsLoaded) {
