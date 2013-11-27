@@ -39,7 +39,8 @@ function Ui() {
 							'callerRow',
 							'contactSelect',
 							'contactRow',
-							'normalBubble'];
+							'normalBubble',
+							'splitInWords'];
 			this.templateManager.loadToCache(templates, this.initPages.bind(this));
 		},
 
@@ -172,10 +173,22 @@ function Ui() {
 		
 		showSplitMessage: function () {
 			
-			var element = this.clearWordsList();
+			var message, i, data, words, htmlCode, parentElement = this.clearWordsList();
+			htmlCode = '';
 			console.log(app.getCurrentMessage());
-			var message = app.model.getMessageById(app.getCurrentMessage());
-			element.html(message.body.plainBody);
+			message = app.model.getMessageById(app.getCurrentMessage());
+			message = message.body.plainBody.replace( /\W/g, " " );
+			//message = message.replace( /;/g, " " );
+			words = message.split(" ");
+			for (i = 0; i < words.length; i++) {
+				data = {
+					'number': i,
+					'word': words[i]
+				};
+				htmlCode += app.ui.templateManager.get('splitInWords', data);
+			}
+			
+			parentElement.html(htmlCode);
 		},
 		
 		scrollToBottom: function (noCorrection) {
