@@ -11,8 +11,6 @@
     <script type="text/javascript" src="./js/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="./js/jquery.mobile-1.2.0.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
-    <script type="text/javascript" src="./js/app.ui.events.js"></script>
-    <script type="text/javascript" src="./js/app.ui.js"></script>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -61,28 +59,17 @@
     <div data-role="page" id="splitMessageInWords" >
 
         <div data-role="header" >
-            <h1>Split sms in words</h1>
+            <h1>Rule master</h1>
             <a href="#one" data-role="button" data-icon="back">Back</a>
+            <a href="#" data-role="button" data-icon="check" id="saveRule">Done</a>
         </div><!-- /header -->
 
         <div data-role="content" >
             <h2>Split sms in words</h2>
+            <p>Please, set appropriate field to corresponding word in test sms. 
+            For example, 19,87USD is amount of change balance, so set to this value 'Outcome'.</p>
             <div data-role="fieldcontain" id="splitSms">
-			    <label for="select-native-1">Basic:</label>
-			    <select name="select-native-1" id="select-native-1">
-			    	<option value="0">Nothing</option>
-			        <option value="1">Outcome</option>
-			        <option value="2">Transaction code</option>
-			        <option value="3">Date</option>
-			    </select>
-			    <hr/>
-			    <label for="select-native-2">Basic:</label>
-			    <select name="select-native-2" id="select-native-2">
-			    	<option value="0">Nothing</option>
-			        <option value="1">Outcome</option>
-			        <option value="2">Transaction code</option>
-			        <option value="3">Date</option>
-			    </select>
+			    
 			</div>
         </div><!-- /content -->
 
@@ -98,10 +85,10 @@
                     data-icon="back">Back</a>
             <a href="#refresh" data-role="button" data-inline="true"
                     data-icon="back">Refresh</a>
-            <h1>Dialog</h1>
+            <h1>Rule master</h1>
         </div><!-- /header -->
 
-        <div data-role="smsThread-content" >
+        <div data-role="content" >
             <h2>Select sms thread</h2>
             <ul data-role="listview" data-inset="true" id="smsThreadList">
             	

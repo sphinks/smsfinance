@@ -34,6 +34,13 @@ function UiEvents(parent) {
 		    	app.loadMessage();
 		    });
 			
+			$('#saveRule').click(function() {
+//				console.log('Try to read: test');
+//				var item = window.localStorage.getItem( 'item_name');
+//				console.log('Read: ' + item);
+		    	app.saveRule();
+		    });
+			
 			$('#chat').on('pageshow', function () {
 				app.fillUpMessagePage();
 			});

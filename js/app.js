@@ -23,6 +23,7 @@ var App = null;
 		requires: [
 			'js/app.config.js',
 			'js/app.helpers.js',
+			'js/app.model.rule.js',
 			'js/app.model.js',
 			'js/app.ui.js',
 			'js/app.ui.templateManager.js',
@@ -49,6 +50,8 @@ var App = null;
 		 * @type Helpers
 		 */
 		helpers: null,
+		
+		rules: [],
 
 		/**
 		 * Initialisation function
@@ -59,6 +62,7 @@ var App = null;
 			this.helpers = new Helpers();
 			this.ui = new Ui();
 			this.model = new Model();
+			//this.rule = new Rule();
 			return this;
 		},
 
@@ -100,6 +104,10 @@ var App = null;
 		
 		splitMessage: function App_splitMessage() {
 			this.ui.showSplitMessage();
+		},
+		
+		saveRule: function App_saveRule() {
+			this.ui.saveRule();
 		},
 
 		fillUpMessagePage: function () {

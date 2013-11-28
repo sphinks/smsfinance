@@ -109,7 +109,6 @@ function Ui() {
 			event.stopPropagation();
 			app.setCurrentMessage(element.attr('id'));
 			$.mobile.changePage('#splitMessageInWords');
-			console.log(element.attr('id'));
 		},
 
 		loadSmsThreadList: function () {
@@ -175,10 +174,8 @@ function Ui() {
 			
 			var message, i, data, words, htmlCode, parentElement = this.clearWordsList();
 			htmlCode = '';
-			console.log(app.getCurrentMessage());
 			message = app.model.getMessageById(app.getCurrentMessage());
-			message = message.body.plainBody.replace( /\W/g, " " );
-			//message = message.replace( /;/g, " " );
+			message = app.helpers.clearSmsForSplitting(message.body.plainBody);
 			words = message.split(" ");
 			for (i = 0; i < words.length; i++) {
 				data = {
@@ -189,6 +186,15 @@ function Ui() {
 			}
 			
 			parentElement.html(htmlCode);
+		},
+		
+		saveRule: function () {
+			$('#splitSms > select').each(function () {
+				console.log($(this).attr('name'));
+				var id = 'label#' + $(this).attr('name');
+				console.log($(id).html());
+			});
+			//console.log(select.leng);
 		},
 		
 		scrollToBottom: function (noCorrection) {

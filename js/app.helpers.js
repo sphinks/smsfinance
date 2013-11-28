@@ -71,6 +71,18 @@ function Helpers() {
 		},
 		
 		/**
+		 * Replace in sms symbols ';', ':' and delete text double spaces,
+		 * @param {sms} sms text to process
+		 * @returns {string} process string
+		 */
+		clearSmsForSplitting: function Helpers_clearSmsForSplitting(sms) {
+			var readyMessage = sms.replace( /\s/g, ' ' );
+			readyMessage = readyMessage.replace( /[;:]/g, " " );
+			readyMessage = readyMessage.replace( /\s{2,}/g, ' ' );
+			return readyMessage;
+		},
+		
+		/**
 		 * Extracts full name from contact object
 		 * @param {contact} contact The contact object.
 		 * @param {string} option The optional value for full name if the firstName and lastName are empty.
