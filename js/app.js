@@ -51,6 +51,9 @@ var App = null;
 		 */
 		helpers: null,
 		
+		/**
+		 * @type Array
+		 */
 		rules: [],
 
 		/**
@@ -108,6 +111,10 @@ var App = null;
 		
 		saveRule: function App_saveRule() {
 			this.ui.saveRule();
+		},
+		
+		loadRules: function App_saveRule() {
+			this.ui.loadRules();
 		},
 
 		fillUpMessagePage: function () {

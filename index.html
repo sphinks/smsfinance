@@ -15,27 +15,18 @@
 </head>
 
 <body>
-    <!-- Start of first page: #one -->
-    <div data-role="page" id="one" >
+    <!-- Start of first page: #main -->
+    <div data-role="page" id="main" >
         <div data-role="header" data-position="fixed" >
-            <h1>Multi-page application</h1>
+            <h1>Sms Finance</h1>
             <a href="#two" data-role="button" data-icon="plus">Add</a> 
         </div><!-- /header -->
 
         <div data-role="content" >
-            <h2>One</h2>
-            <p>
-                This is a multi-page boilerplate template that you can copy to build
-                your first jQuery Mobile page. This template contains multiple "page"
-                containers inside.
-            </p>
-            <p>
-                You link to internal pages by referring to the ID of the page you
-                want to show. For example, to <a href="#two">link</a> to the page
-                with an ID of "two", my link would have a
-                <code>href="#two"</code>
-                in the code.
-            </p>
+            <h2>Your parsing rules</h2>
+            <ul data-role="listview" data-inset="true" id="rulesList">
+            	
+            </ul>
 
             <h3>Show internal pages:</h3>
             <p>
@@ -55,12 +46,17 @@
         </div><!-- /footer -->
     </div><!-- /page one -->
 
+    
+    
+    
+    
+    
     <!-- Start of second page: #splitMessageInWords -->
     <div data-role="page" id="splitMessageInWords" >
 
         <div data-role="header" >
             <h1>Rule master</h1>
-            <a href="#one" data-role="button" data-icon="back">Back</a>
+            <a href="#chat" data-role="button" data-icon="back">Back</a>
             <a href="#" data-role="button" data-icon="check" id="saveRule">Done</a>
         </div><!-- /header -->
 
@@ -78,10 +74,15 @@
         </div><!-- /footer -->
     </div><!-- /page two -->
     
+    
+    
+    
+    
+    
     <!-- Start of page: #chooseSmsThread -->
     <div data-role="page" id="chooseSmsThread" >
         <div data-role="header" >
-        	<a href="#one" data-rel="back" data-role="button" data-inline="true"
+        	<a href="#main" data-role="button" data-inline="true"
                     data-icon="back">Back</a>
             <a href="#refresh" data-role="button" data-inline="true"
                     data-icon="back">Refresh</a>
@@ -96,10 +97,13 @@
         </div><!-- /content -->
     </div><!-- /end of page -->
     
+    
+    
+    
     <!-- Start of page: #chat -->
     <div data-role="page" id="chat" >
         <div data-role="header" >
-        	<a href="#chooseSmsThread" data-rel="back" data-role="button" data-inline="true"
+        	<a href="#chooseSmsThread" data-role="button" data-inline="true"
                     data-icon="back">Back</a>
             <a href="#refresh" data-role="button" data-inline="true"
                     data-icon="back">Refresh</a>

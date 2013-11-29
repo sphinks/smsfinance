@@ -1,8 +1,15 @@
 /*jslint devel: true*/
-function Rule() {
+/**
+ * @class Rule
+ */
+function Rule(name) {
 	'use strict';
+	this.name = name;
+	this.outcomePrevWord = null;
+	this.datePrevWord = null;
+	this.tcodePrevWord = null;
+	this.smsMatchExp = null;
 }
-
 
 (function () { // strict mode wrapper
 	'use strict';
@@ -11,29 +18,41 @@ function Rule() {
 		/**
 		 * @type string
 		 */
-		outcomePrevWord: null,
+		//name: null,	
+			
+		/**
+		 * @type string
+		 */
+		//outcomePrevWord: null,
 
 		/**
 		 * @type string
 		 */
-		datePrevWord: null,
+		//datePrevWord: null,
 
 		/**
 		 * @type string
 		 */
-		tcodePrevWord: null,
+		//tcodePrevWord: null,
 		
 		/**
 		 * @type string
 		 */
-		smsMatchExp: null,
+		//smsMatchExp: null,
 
 		/**
 		 * Initialisation function
 		 */
-		init: function Rule_init() {
+		init: function Rule_init(name) {
+			//return this;
+		},
+		
+		setName: function Rule_setName(name) {
+			this.name = name;
+		},
 
-			return this;
+		getName: function Rule_getName() {
+			return this.name;
 		},
 
 		setOutcomePrevWord: function Rule_setOutcomePrevWord(outcomePrevWord) {

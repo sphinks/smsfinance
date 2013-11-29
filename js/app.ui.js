@@ -40,7 +40,8 @@ function Ui() {
 							'contactSelect',
 							'contactRow',
 							'normalBubble',
-							'splitInWords'];
+							'splitInWords',
+							'ruleRow'];
 			this.templateManager.loadToCache(templates, this.initPages.bind(this));
 		},
 
@@ -189,12 +190,59 @@ function Ui() {
 		},
 		
 		saveRule: function () {
+			var lastUnsedWord = '';
+			var rule = new Rule('Rule 1');
 			$('#splitSms > select').each(function () {
-				console.log($(this).attr('name'));
-				var id = 'label#' + $(this).attr('name');
-				console.log($(id).html());
+				/*console.log($(this).attr('name'));
+				console.log($(this).attr('word'));*/
+				console.log($(this).find(":selected").val());
+				var typeOfSelect = $(this).find(":selected").val();
+				if (typeOfSelect == 0) { //Nothing
+					lastUnsedWord = $(this).attr('word');
+				}else{
+					if (typeOfSelect == 1) { //Outcome
+						console.log('Set outcome: ' + lastUnsedWord);
+						rule.setOutcomePrevWord(lastUnsedWord);
+					}
+					if (typeOfSelect == 2) { //Transaction code
+						console.log('Set tcode: ' + lastUnsedWord);
+						rule.setTcodePrevWord(lastUnsedWord);
+					}
+					if (typeOfSelect == 3) { //Date
+						console.log('Set date: ' + lastUnsedWord);
+						rule.setDatePrevWord(lastUnsedWord);
+					}
+				}
+				
 			});
-			//console.log(select.leng);
+			app.rules.push(rule);
+			console.log('Object to json: ' + JSON.stringify(rule, null, 2));
+			this.showMainPage();
+		},
+		
+		loadRules: function() {
+			console.log('Try to load rules');
+			var ul, i, rules, data;
+
+			ul = $('#rulesList').empty();
+	
+			if (app.rules.length != 0) {
+				rules = app.rules;
+				i = rules.length;
+				while ((i -= 1) >= 0) {
+					data = {
+						'ruleName': rules[i].getName(),
+						'dateWord': rules[i].getDatePrevWord(),
+						'outcomeWord': rules[i].getOutcomePrevWord(),
+						'tcodeWord': rules[i].getTcodePrevWord(),
+						'smsMatch': rules[i].getSmsMatchExp()
+					};
+	
+					ul.append(app.ui.templateManager.get('ruleRow', data));
+				}
+				ul.listview('refresh');
+				app.ui.scrollToBottom();
+			}
 		},
 		
 		scrollToBottom: function (noCorrection) {

@@ -41,6 +41,11 @@ function UiEvents(parent) {
 		    	app.saveRule();
 		    });
 			
+			$('#main').on('pageshow', function () {
+				console.log('Show main page');
+				app.loadRules();
+			});
+			
 			$('#chat').on('pageshow', function () {
 				app.fillUpMessagePage();
 			});
