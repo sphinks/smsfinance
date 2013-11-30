@@ -216,7 +216,6 @@ function Ui() {
 				
 			});
 			app.rules.push(rule);
-			console.log('Object to json: ' + JSON.stringify(rule, null, 2));
 			this.showMainPage();
 		},
 		

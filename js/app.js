@@ -111,10 +111,37 @@ var App = null;
 		
 		saveRule: function App_saveRule() {
 			this.ui.saveRule();
+			var rulesJson = JSON.stringify(app.rules, null, 2);
+			//console.log('Object to json saved: ' + rulesJson);
+			window.localStorage.setItem('SmsFinance.rules', rulesJson);
 		},
 		
-		loadRules: function App_saveRule() {
+		loadRules: function App_loadRules() {
+			var rulesJson = JSON.parse(window.localStorage.getItem('SmsFinance.rules'));
+			app.rules.length = 0;
+			for (var i = 0; i < rulesJson.length; i++) {
+				var rule = new Rule('');
+				rule.deserialize(rulesJson[i]);
+				app.rules.push(rule);
+			}
 			this.ui.loadRules();
+		},
+		
+		deleteRule: function App_deleteRule(ruleName) {
+			var indexToDelete = -1;
+			for (var i = 0; i < app.rules.length; i++) {
+				if (app.rules[i].getName() == ruleName) {
+					indexToDelete = i;
+					break;
+				}
+			}
+			console.log(indexToDelete);
+			if (indexToDelete >= 0) {
+				app.rules.splice(indexToDelete, 1);
+				var rulesJson = JSON.stringify(app.rules, null, 2);
+				window.localStorage.setItem('SmsFinance.rules', rulesJson);
+				this.loadRules();
+			}
 		},
 
 		fillUpMessagePage: function () {

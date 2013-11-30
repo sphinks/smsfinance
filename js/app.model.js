@@ -26,7 +26,6 @@ function Model() {
 				tizen.messaging.getMessageServices("messaging.sms",
 					function (s) {
 						self.smsService = s[0];
-						self.loadMessages(app.fillUpMessagePage.bind(self));
 						self.messagesChangeListener();
 					}
 				);

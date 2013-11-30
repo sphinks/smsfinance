@@ -87,5 +87,13 @@ function Rule(name) {
 			return this.smsMatchExp;
 		},
 		
+		deserialize: function Rule_deserialize(plainObject) {
+			this.name = plainObject.name;
+			this.outcomePrevWord = plainObject.outcomePrevWord;
+			this.datePrevWord = plainObject.datePrevWord;
+			this.tcodePrevWord = plainObject.tcodePrevWord;
+			this.smsMatchExp = plainObject.smsMatchExp;
+		}
+		
 	};
 }());

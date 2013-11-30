@@ -18,7 +18,7 @@ function UiEvents(parent) {
 		 */
 		init: function UiEvents_init() {
 			this.addPageEvents();
-			//this.enableFooterOnSoftKeyboard();
+			app.loadRules();
 		},
 
 		/**
@@ -33,6 +33,13 @@ function UiEvents(parent) {
 //				console.log('Read: ' + item);
 		    	app.loadMessage();
 		    });
+			
+			$('#rulesList').on('tap', '#deleteRule', function () {
+				//console.log('Delete');
+				
+				app.deleteRule($(this).attr('ruleName'));
+		    	//console.log('Delete rule' + $(this).attr('ruleName'));
+			});
 			
 			$('#saveRule').click(function() {
 //				console.log('Try to read: test');
