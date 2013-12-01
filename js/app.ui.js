@@ -49,17 +49,7 @@ function Ui() {
 			var pages = [];
 
 			app.model.init();
-
-			//$('#main').append($(this.templateManager.get('main_page')).children()).trigger('pagecreate');
-
-			//pages.push(this.templateManager.get('contactSelect'));
-			//pages.push(this.templateManager.get('chat'));
-			//$('body').append(pages.join(''));
-
 			this.uiEvents.init();
-
-			//this.setChatCounterValue();
-			//this.checkChatSendButtonState();
 		},
 
 		setChatTitle: function Ui_setChatTitle(title) {

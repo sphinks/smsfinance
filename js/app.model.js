@@ -37,19 +37,27 @@ function Model() {
 		messagesChangeListener: function () {
 			var self = this, config,
 				messageChangeCallback = {
-					messagesupdated: function (messages) {
-						if (messages[0].messageStatus !== 'SENDING') {
+					messagesupdated: function (updateMessages) {
+						//console.log('Message updated');
+						/*if (messages[0].messageStatus !== 'SENDING') {
 							app.ui.changeMessageStatus(messages[0]);
-						}
+						}*/
 					},
-					messagesadded: function (messages) {
-						self.prepareMessages(app.ui.showMessageChat);
+					messagesadded: function (addedMessage) {
+						//console.log('Message added: ');
+						self.outputlog(addedMessage);
+						//self.prepareMessages(app.ui.showMessageChat);
 					},
-					messagesremoved: function () {
-						self.prepareMessages(app.ui.showMessageChat);
+					messagesremoved: function (removedMessages) {
+						//console.log('Message removed');
+						//self.prepareMessages(app.ui.showMessageChat);
 					}
 				};
 			this.smsService.messageStorage.addMessagesChangeListener(messageChangeCallback);
+		},
+		
+		outputlog: function(messages) {
+			console.log("Messages changed");
 		},
 
 		loadMessages: function (callback) {
