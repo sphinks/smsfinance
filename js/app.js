@@ -110,10 +110,11 @@ var App = null;
 		},
 		
 		saveRule: function App_saveRule() {
-			this.ui.saveRule();
+			var rule = this.ui.saveRule();
 			var rulesJson = JSON.stringify(app.rules, null, 2);
 			//console.log('Object to json saved: ' + rulesJson);
 			window.localStorage.setItem('SmsFinance.rules', rulesJson);
+			app.model.scanMessagesForRule(rule);
 		},
 		
 		loadRules: function App_loadRules() {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/SmsFinance" version="1.0.0" viewmodes="maximized">
-    <tizen:application id="i4HWYzxNUF.SmsFinance" package="i4HWYzxNUF" required_version="2.2"/>
+    <tizen:application id="OTtDxkXhgD.SmsFinance" package="OTtDxkXhgD" required_version="2.2"/>
     <content src="index.html"/>
     <icon src="icon.png"/>
     <name>SmsFinance</name>
@@ -9,4 +9,7 @@
     <tizen:privilege name="http://tizen.org/privilege/contact.read"/>
     <tizen:privilege name="http://tizen.org/privilege/contact.write"/>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:setting screen-orientation="portrait" context-menu="enable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
+    <feature name="http://tizen.org/feature/screen.size.normal.480.800"/>
+    <feature name="http://tizen.org/feature/screen.size.normal.720.1280"/>
 </widget>

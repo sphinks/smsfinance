@@ -166,12 +166,13 @@ function Ui() {
 			var message, i, data, words, htmlCode, parentElement = this.clearWordsList();
 			htmlCode = '';
 			message = app.model.getMessageById(app.getCurrentMessage());
-			message = app.helpers.clearSmsForSplitting(message.body.plainBody);
-			words = message.split(" ");
+			var messageBody = app.helpers.clearSmsForSplitting(message.body.plainBody);
+			words = messageBody.split(" ");
 			for (i = 0; i < words.length; i++) {
 				data = {
 					'number': i,
-					'word': words[i]
+					'word': words[i],
+					'from': message.from
 				};
 				htmlCode += app.ui.templateManager.get('splitInWords', data);
 			}
@@ -181,12 +182,17 @@ function Ui() {
 		
 		saveRule: function () {
 			var lastUnsedWord = '';
+			var from = '';
 			var rule = new Rule('Rule 1');
+//			$('#splitSms > select').first(function () {
+//				from = $(this).attr('from');
+//				console.log('Get from:' + from);
+//			});
 			$('#splitSms > select').each(function () {
-				/*console.log($(this).attr('name'));
-				console.log($(this).attr('word'));*/
-				console.log($(this).find(":selected").val());
+				//console.log($(this).attr('from'));
+				//console.log($(this).find(":selected").val());
 				var typeOfSelect = $(this).find(":selected").val();
+				from = $(this).attr('from');
 				if (typeOfSelect == 0) { //Nothing
 					lastUnsedWord = $(this).attr('word');
 				}else{
@@ -205,8 +211,10 @@ function Ui() {
 				}
 				
 			});
+			rule.setFromFilter(from);
 			app.rules.push(rule);
 			this.showMainPage();
+			return rule;
 		},
 		
 		loadRules: function() {
@@ -221,6 +229,7 @@ function Ui() {
 				while ((i -= 1) >= 0) {
 					data = {
 						'ruleName': rules[i].getName(),
+						'fromFilter': rules[i].getFromFilter(),
 						'dateWord': rules[i].getDatePrevWord(),
 						'outcomeWord': rules[i].getOutcomePrevWord(),
 						'tcodeWord': rules[i].getTcodePrevWord(),

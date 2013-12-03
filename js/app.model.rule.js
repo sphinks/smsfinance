@@ -9,6 +9,7 @@ function Rule(name) {
 	this.datePrevWord = null;
 	this.tcodePrevWord = null;
 	this.smsMatchExp = null;
+	this.fromFilter = null;
 }
 
 (function () { // strict mode wrapper
@@ -87,12 +88,21 @@ function Rule(name) {
 			return this.smsMatchExp;
 		},
 		
+		getFromFilter: function Rule_getFromFilter() {
+			return this.fromFilter;
+		},
+		
+		setFromFilter: function Rule_setFromFilter(fromFilter) {
+			this.fromFilter = fromFilter;
+		},
+		
 		deserialize: function Rule_deserialize(plainObject) {
 			this.name = plainObject.name;
 			this.outcomePrevWord = plainObject.outcomePrevWord;
 			this.datePrevWord = plainObject.datePrevWord;
 			this.tcodePrevWord = plainObject.tcodePrevWord;
 			this.smsMatchExp = plainObject.smsMatchExp;
+			this.fromFilter = plainObject.fromFilter;
 		}
 		
 	};

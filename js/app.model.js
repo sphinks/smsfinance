@@ -35,7 +35,7 @@ function Model() {
 		},
 
 		messagesChangeListener: function () {
-			var self = this, config,
+			var self = this,
 				messageChangeCallback = {
 					messagesupdated: function (updateMessages) {
 						//console.log('Message updated');
@@ -45,7 +45,7 @@ function Model() {
 					},
 					messagesadded: function (addedMessage) {
 						//console.log('Message added: ');
-						self.outputlog(addedMessage);
+						self.outputlog(messages);
 						//self.prepareMessages(app.ui.showMessageChat);
 					},
 					messagesremoved: function (removedMessages) {
@@ -122,6 +122,20 @@ function Model() {
 				obj.lastMessage = message;
 			}
 			return obj;
+		},
+		
+		scanMessagesForRule: function (rule) {
+			console.log('Start scan with ' + rule.getFromFilter());
+			this.loadMessages();
+			var i;
+			var messages = this.messagesList;
+			console.log('Message list: ' + this.messagesList.length);
+			for (i = 0; i < messages.length; i++) {
+				console.log('Message with ' + messages[i].from);
+				if (rule.getFromFilter() == messages[i].from) {
+					console.log('This is our message');
+				}
+			}
 		},
 
 		getGroupObject: function () {
