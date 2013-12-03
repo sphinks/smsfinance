@@ -10,6 +10,8 @@ function Rule(name) {
 	this.tcodePrevWord = null;
 	this.smsMatchExp = null;
 	this.fromFilter = null;
+	this.matchIndexes = new Array();
+	this.stat = new Stat();
 }
 
 (function () { // strict mode wrapper
@@ -17,9 +19,9 @@ function Rule(name) {
 	Rule.prototype = {
 
 		/**
-		 * @type string
+		 * @type app.model.stat
 		 */
-		//name: null,	
+		//stat: null,	
 			
 		/**
 		 * @type string
@@ -44,7 +46,8 @@ function Rule(name) {
 		/**
 		 * Initialisation function
 		 */
-		init: function Rule_init(name) {
+		init: function Rule_init() {
+			
 			//return this;
 		},
 		
@@ -88,12 +91,28 @@ function Rule(name) {
 			return this.smsMatchExp;
 		},
 		
+		setMatchIndexes: function Rule_setMatchIndexes(matchIndexes) {
+			this.matchIndexes = matchIndexes;
+		},
+
+		getMatchIndexes: function Rule_getMatchIndexes() {
+			return this.matchIndexes;
+		},
+		
 		getFromFilter: function Rule_getFromFilter() {
 			return this.fromFilter;
 		},
 		
 		setFromFilter: function Rule_setFromFilter(fromFilter) {
 			this.fromFilter = fromFilter;
+		},
+		
+		getStat: function Rule_getStat() {
+			return this.stat;
+		},
+		
+		setStat: function Rule_setStat(stat) {
+			this.stat = stat;
 		},
 		
 		deserialize: function Rule_deserialize(plainObject) {
@@ -103,6 +122,8 @@ function Rule(name) {
 			this.tcodePrevWord = plainObject.tcodePrevWord;
 			this.smsMatchExp = plainObject.smsMatchExp;
 			this.fromFilter = plainObject.fromFilter;
+			this.matchIndexes = plainObject.matchIndexes;
+			this.stat = plainObject.stat;
 		}
 		
 	};

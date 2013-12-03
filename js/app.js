@@ -23,6 +23,7 @@ var App = null;
 		requires: [
 			'js/app.config.js',
 			'js/app.helpers.js',
+			'js/app.model.stat.js',
 			'js/app.model.rule.js',
 			'js/app.model.js',
 			'js/app.ui.js',
@@ -111,10 +112,14 @@ var App = null;
 		
 		saveRule: function App_saveRule() {
 			var rule = this.ui.saveRule();
+			app.model.scanMessagesForRule(rule);
+			this.saveRulesToStorage();
+		},
+		
+		saveRulesToStorage: function App_saveRule() {
 			var rulesJson = JSON.stringify(app.rules, null, 2);
 			//console.log('Object to json saved: ' + rulesJson);
 			window.localStorage.setItem('SmsFinance.rules', rulesJson);
-			app.model.scanMessagesForRule(rule);
 		},
 		
 		loadRules: function App_loadRules() {
@@ -136,7 +141,7 @@ var App = null;
 					break;
 				}
 			}
-			console.log(indexToDelete);
+			//console.log(indexToDelete);
 			if (indexToDelete >= 0) {
 				app.rules.splice(indexToDelete, 1);
 				var rulesJson = JSON.stringify(app.rules, null, 2);
@@ -144,7 +149,18 @@ var App = null;
 				this.loadRules();
 			}
 		},
-
+		
+		getRuleByName: function App_getRuleByName(ruleName) {
+			var index = -1;
+			for (var i = 0; i < app.rules.length; i++) {
+				if (app.rules[i].getName() == ruleName) {
+					index = i;
+					break;
+				}
+			}
+			return app.rules[index];
+		},
+		
 		fillUpMessagePage: function () {
 			/*if ($.mobile.activePage.attr('id') === 'main') {
 				this.ui.loadCallerList();

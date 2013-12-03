@@ -126,17 +126,43 @@ function Model() {
 		
 		scanMessagesForRule: function (rule) {
 			console.log('Start scan with ' + rule.getFromFilter());
-			this.loadMessages();
-			var i;
-			var messages = this.messagesList;
-			console.log('Message list: ' + this.messagesList.length);
+			var i, messages = app.model.messagesList[rule.getFromFilter()].messages;
+			var stat = new Stat();
+			console.log('Message list: ' + messages.length);
 			for (i = 0; i < messages.length; i++) {
-				console.log('Message with ' + messages[i].from);
-				if (rule.getFromFilter() == messages[i].from) {
-					console.log('This is our message');
+				
+				this.compareMessageAgainstRule(messages[i],rule, stat);
+				//console.log('This is our message');
+			}
+			rule.setStat(stat);
+			console.log("Total: " + rule.stat.total);
+		},
+		
+		compareMessageAgainstRule: function (message, rule, stat) {
+			
+			var messageBody = app.helpers.clearSmsForSplitting(message.body.plainBody);
+			var words = messageBody.split(" ");
+			
+			var i, smsMatch = '';
+			for (i = 0; i < rule.matchIndexes.length; i++) {
+				if (rule.matchIndexes[i] < words.length) {
+					smsMatch += words[rule.matchIndexes[i]]; 
+				}
+			}
+			console.log("Sms match: " + smsMatch + " against " + rule.getSmsMatchExp());
+			if (smsMatch == rule.getSmsMatchExp()) {
+				console.log('This is our message');
+			}
+			for (i = 1; i < words.length; i++) {
+				if (words[i-1] == rule.getOutcomePrevWord()) {
+					console.log('Start work with word: ' + words[i]);
+					//words[i] = words[i].replace(/([$A-Za-z_])+/g,'');
+					stat.total += parseFloat(words[i]);
+					console.log('End work with word: ' + stat.total);
 				}
 			}
 		},
+		
 
 		getGroupObject: function () {
 			return {

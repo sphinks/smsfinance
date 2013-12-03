@@ -41,6 +41,12 @@ function UiEvents(parent) {
 		    	//console.log('Delete rule' + $(this).attr('ruleName'));
 			});
 			
+			$('#rulesList').on('tap', '#runRule', function () {
+				app.model.scanMessagesForRule(app.getRuleByName($(this).attr('ruleName')));
+				app.saveRulesToStorage();
+				app.ui.loadRules();
+			});
+			
 			$('#saveRule').click(function() {
 //				console.log('Try to read: test');
 //				var item = window.localStorage.getItem( 'item_name');

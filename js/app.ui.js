@@ -182,8 +182,11 @@ function Ui() {
 		
 		saveRule: function () {
 			var lastUnsedWord = '';
+			var twoFirstUnusedWords = '';
+			var firstUnsedWordsCount = 0;
 			var from = '';
 			var rule = new Rule('Rule 1');
+			var wordCount = 0;
 //			$('#splitSms > select').first(function () {
 //				from = $(this).attr('from');
 //				console.log('Get from:' + from);
@@ -195,6 +198,11 @@ function Ui() {
 				from = $(this).attr('from');
 				if (typeOfSelect == 0) { //Nothing
 					lastUnsedWord = $(this).attr('word');
+					firstUnsedWordsCount++;
+					if (firstUnsedWordsCount <= 2) {
+						twoFirstUnusedWords += lastUnsedWord;
+						rule.matchIndexes.push(wordCount);
+					}
 				}else{
 					if (typeOfSelect == 1) { //Outcome
 						console.log('Set outcome: ' + lastUnsedWord);
@@ -209,9 +217,10 @@ function Ui() {
 						rule.setDatePrevWord(lastUnsedWord);
 					}
 				}
-				
+				wordCount++;
 			});
 			rule.setFromFilter(from);
+			rule.setSmsMatchExp(twoFirstUnusedWords);
 			app.rules.push(rule);
 			this.showMainPage();
 			return rule;
@@ -229,11 +238,12 @@ function Ui() {
 				while ((i -= 1) >= 0) {
 					data = {
 						'ruleName': rules[i].getName(),
-						'fromFilter': rules[i].getFromFilter(),
-						'dateWord': rules[i].getDatePrevWord(),
-						'outcomeWord': rules[i].getOutcomePrevWord(),
-						'tcodeWord': rules[i].getTcodePrevWord(),
-						'smsMatch': rules[i].getSmsMatchExp()
+						//'fromFilter': rules[i].getFromFilter(),
+						//'dateWord': rules[i].getDatePrevWord(),
+						//'outcomeWord': rules[i].getOutcomePrevWord(),
+						//'tcodeWord': rules[i].getTcodePrevWord(),
+						//'smsMatch': rules[i].getSmsMatchExp()
+						'total':rules[i].getStat().total
 					};
 	
 					ul.append(app.ui.templateManager.get('ruleRow', data));
