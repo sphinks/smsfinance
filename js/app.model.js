@@ -78,7 +78,6 @@ function Model() {
 						messages.sort(compare);
 						self.messagesList = self.groupMessages(messages);
 						app.ui.loadSmsThreadList();
-						//callback();
 					},
 					function () {
 						console.error('prepareMessage: error');
@@ -86,6 +85,48 @@ function Model() {
 				);
 			} catch (err) {
 				console.error(err);
+			}
+		},
+		
+		loadMessagesInternally: function (callback) {
+			var self = this;
+			try {
+				this.smsService.messageStorage.findMessages(
+					new tizen.AttributeFilter("type", "EXACTLY", "messaging.sms"),
+					function (messages) {
+						function compare(a, b) {
+							if (a.timestamp > b.timestamp) {
+								return -1;
+							} else if (a.timestamp < b.timestamp) {
+								return 1;
+							} else {
+								return 0;
+							}
+						}
+						messages.sort(compare);
+						self.messagesList = self.groupMessages(messages);
+						callback();
+					},
+					function () {
+						console.error('prepareMessage: error');
+					}
+				);
+			} catch (err) {
+				console.error(err);
+			}
+		},
+		
+		runRuleOnMessages: function () {
+			var ruleName = app.getCurrentRuleName();
+			app.model.scanMessagesForRule(app.getRuleByName(ruleName));
+			app.saveRulesToStorage();
+			app.ui.loadRules();
+		},
+		
+		updateRulesStat: function () {
+			var i;
+			for (i = 0; i < app.rules.length; i++) {
+				app.model.scanMessagesForRule(app.rules[i]);
 			}
 		},
 
@@ -125,10 +166,11 @@ function Model() {
 		},
 		
 		scanMessagesForRule: function (rule) {
-			console.log('Start scan with ' + rule.getFromFilter());
+			//console.log('Start scan with ' + rule.getFromFilter());
+			//console.log('Scan with mesasges: ' + app.model.messagesList.length);
 			var i, messages = app.model.messagesList[rule.getFromFilter()].messages;
 			var stat = new Stat();
-			console.log('Message list: ' + messages.length);
+			//console.log('Message list: ' + messages.length);
 			for (i = 0; i < messages.length; i++) {
 				
 				this.compareMessageAgainstRule(messages[i],rule, stat);
@@ -149,16 +191,16 @@ function Model() {
 					smsMatch += words[rule.matchIndexes[i]]; 
 				}
 			}
-			console.log("Sms match: " + smsMatch + " against " + rule.getSmsMatchExp());
+			//console.log("Sms match: " + smsMatch + " against " + rule.getSmsMatchExp());
 			if (smsMatch == rule.getSmsMatchExp()) {
 				console.log('This is our message');
 			}
 			for (i = 1; i < words.length; i++) {
 				if (words[i-1] == rule.getOutcomePrevWord()) {
-					console.log('Start work with word: ' + words[i]);
+					//console.log('Start work with word: ' + words[i]);
 					//words[i] = words[i].replace(/([$A-Za-z_])+/g,'');
-					stat.total += parseFloat(words[i]);
-					console.log('End work with word: ' + stat.total);
+					stat.total += parseFloat(words[i].replace(',', '.'));
+					//console.log('End work with word: ' + stat.total);
 				}
 			}
 		},

@@ -14,6 +14,7 @@ var App = null;
 		this.currentNumber = null;
 		this.currentCaller = null;
 		this.currentMessage = null;
+		this.currentRuleName = null;
 	};
 
 	App.prototype = {
@@ -66,7 +67,7 @@ var App = null;
 			this.helpers = new Helpers();
 			this.ui = new Ui();
 			this.model = new Model();
-			//this.rule = new Rule();
+			
 			return this;
 		},
 
@@ -92,6 +93,14 @@ var App = null;
 
 		getCurrentMessage: function App_getCurrentMessage() {
 			return this.currentMessage;
+		},
+		
+		setCurrentRuleName: function App_setCurrentRuleName(ruleName) {
+			this.currentRuleName = ruleName;
+		},
+
+		getCurrentRuleName: function App_getCurrentRuleName() {
+			return this.currentRuleName;
 		},
 		
 		/**

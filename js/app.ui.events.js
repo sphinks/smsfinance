@@ -42,16 +42,20 @@ function UiEvents(parent) {
 			});
 			
 			$('#rulesList').on('tap', '#runRule', function () {
-				app.model.scanMessagesForRule(app.getRuleByName($(this).attr('ruleName')));
-				app.saveRulesToStorage();
-				app.ui.loadRules();
+				app.setCurrentRuleName($(this).attr('ruleName'));
+				app.model.loadMessagesInternally(app.model.runRuleOnMessages);
 			});
 			
 			$('#saveRule').click(function() {
 //				console.log('Try to read: test');
 //				var item = window.localStorage.getItem( 'item_name');
-//				console.log('Read: ' + item);
-		    	app.saveRule();
+				console.log('Read: ' + $('#ruleName').val());
+				if ($('#ruleName').val() != '') {
+					app.saveRule();
+				}else{
+					alert('Rule name cann`t be empty');
+				}
+		    	
 		    });
 			
 			$('#main').on('pageshow', function () {
@@ -90,6 +94,8 @@ function UiEvents(parent) {
 					}*/
 				}
 			});
+			
+			$(document).ready(app.model.loadMessagesInternally(app.model.updateRulesStat));
 
 			$(window).on('resize', function () {
 				$.mobile.activePage.page('refresh');

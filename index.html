@@ -19,31 +19,32 @@
     <div data-role="page" id="main" >
         <div data-role="header" data-position="fixed" >
             <h1>Sms Finance</h1>
-            <a href="#two" data-role="button" data-icon="plus">Add</a> 
+            <!-- <a href="#two" data-role="button" data-icon="plus">Add</a> --> 
         </div><!-- /header -->
 
-        <div data-role="content" >
+        <div data-role="content">
             <h2>Your parsing rules</h2>
+            <p id="noRulesWarning">You have no parsing rules, click 'Rule master' to create a new one.</p>
             <ul data-role="listview" data-inset="true" id="rulesList" data-split-icon="delete">
             	
             </ul>
 
-            <h3>Show internal pages:</h3>
-            <p>
+            <hr/>
+            <!-- <p>
                 <a href="#splitMessageInWords" data-role="button">Show page "two"</a>
-            </p>
+            </p> -->
             <!-- <p>
                 <a href="popup.html" data-role="button" data-rel="dialog"
                     data-transition="pop">Show page "popup" (as a dialog)</a>
             </p> -->
             <p><a href="#chooseSmsThread" data-role="button" data-rel="page"
-                    data-transition="pop" id="createRuleButton">Sms Wizard</a>
+                    data-transition="pop" id="createRuleButton">Rule Wizard</a>
             </p>
         </div><!-- /content -->
 
-        <div data-role="footer" data-position="fixed" >
+        <!-- <div data-role="footer" data-position="fixed" >
             <h4>Page Footer</h4>
-        </div><!-- /footer -->
+        </div> --><!-- /footer -->
     </div><!-- /page one -->
 
     
@@ -61,17 +62,19 @@
         </div><!-- /header -->
 
         <div data-role="content" >
-            <h2>Split sms in words</h2>
+            <h2>Create rule</h2>
             <p>Please, set appropriate field to corresponding word in test sms. 
-            For example, 19,87USD is amount of change balance, so set to this value 'Outcome'.</p>
+            For example, 19,87USD is amount of change balance, so set to this value 'Outcome'. Also, enter a name for this parsing rule.</p>
+            <label for="rule-name">Rule name:</label>
+			<input type="text" name="rule-name" id="ruleName" value="">
             <div data-role="fieldcontain" id="splitSms">
 			    
 			</div>
         </div><!-- /content -->
 
-        <div data-role="footer" data-position="fixed" >
+        <!-- <div data-role="footer" data-position="fixed" >
             <h4>Page Footer</h4>
-        </div><!-- /footer -->
+        </div> --><!-- /footer -->
     </div><!-- /page two -->
     
     
@@ -84,8 +87,8 @@
         <div data-role="header" >
         	<a href="#main" data-role="button" data-inline="true"
                     data-icon="back">Back</a>
-            <a href="#refresh" data-role="button" data-inline="true"
-                    data-icon="back">Refresh</a>
+            <!-- <a href="#refresh" data-role="button" data-inline="true"
+                    data-icon="back">Refresh</a> -->
             <h1>Rule master</h1>
         </div><!-- /header -->
 
@@ -105,9 +108,9 @@
         <div data-role="header" >
         	<a href="#chooseSmsThread" data-role="button" data-inline="true"
                     data-icon="back">Back</a>
-            <a href="#refresh" data-role="button" data-inline="true"
-                    data-icon="back">Refresh</a>
-            <h1 id="chat-title">Dialog</h1>
+            <!-- <a href="#refresh" data-role="button" data-inline="true"
+                    data-icon="back">Refresh</a> -->
+            <h1 id="chat-title">Rule master</h1>
         </div><!-- /header -->
 
         <div data-role="content" >

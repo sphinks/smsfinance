@@ -32,7 +32,6 @@ var app = null;
 					// and load the libraries
 					app = new App();
 					self.loadLibs();
-					//setEvents();
 				})
 				.fail(this.onGetScriptError);
 		},
@@ -50,7 +49,6 @@ var app = null;
 							if (loadedLibs >= app.requires.length) {
 								// All dependencies are loaded - initialise the app
 								app.init();
-								//app.model.init();
 							}
 						})
 						.fail(this.onGetScriptError);

@@ -26,8 +26,6 @@ function Ui() {
 			this.templateManager = new TemplateManager();
 			this.uiEvents = new UiEvents(this);
 			$(document).ready(this.domInit.bind(this));
-			// Disable selection event on document;
-			//$.mobile.tizen.disableSelection(document);
 		},
 
 		/**
@@ -162,7 +160,7 @@ function Ui() {
 		},
 		
 		showSplitMessage: function () {
-			
+			$('#ruleName').val('');
 			var message, i, data, words, htmlCode, parentElement = this.clearWordsList();
 			htmlCode = '';
 			message = app.model.getMessageById(app.getCurrentMessage());
@@ -185,7 +183,7 @@ function Ui() {
 			var twoFirstUnusedWords = '';
 			var firstUnsedWordsCount = 0;
 			var from = '';
-			var rule = new Rule('Rule 1');
+			var rule = new Rule($('#ruleName').val());
 			var wordCount = 0;
 //			$('#splitSms > select').first(function () {
 //				from = $(this).attr('from');
@@ -206,7 +204,9 @@ function Ui() {
 				}else{
 					if (typeOfSelect == 1) { //Outcome
 						console.log('Set outcome: ' + lastUnsedWord);
-						rule.setOutcomePrevWord(lastUnsedWord);
+						if (rule.getOutcomePrevWord() == null) {
+							rule.setOutcomePrevWord(lastUnsedWord);
+						}
 					}
 					if (typeOfSelect == 2) { //Transaction code
 						console.log('Set tcode: ' + lastUnsedWord);
@@ -228,14 +228,20 @@ function Ui() {
 		
 		loadRules: function() {
 			console.log('Try to load rules');
-			var ul, i, rules, data;
+			var ul, i, rules, data, total;
 
 			ul = $('#rulesList').empty();
 	
 			if (app.rules.length != 0) {
+				$('#noRulesWarning').hide();
 				rules = app.rules;
 				i = rules.length;
 				while ((i -= 1) >= 0) {
+					if (rules[i].getStat().total == null) {
+						total = 'N/A';
+					}else{
+						total = rules[i].getStat().total;
+					}
 					data = {
 						'ruleName': rules[i].getName(),
 						//'fromFilter': rules[i].getFromFilter(),
@@ -243,13 +249,15 @@ function Ui() {
 						//'outcomeWord': rules[i].getOutcomePrevWord(),
 						//'tcodeWord': rules[i].getTcodePrevWord(),
 						//'smsMatch': rules[i].getSmsMatchExp()
-						'total':rules[i].getStat().total
+						'total':total
 					};
 	
 					ul.append(app.ui.templateManager.get('ruleRow', data));
 				}
 				ul.listview('refresh');
 				app.ui.scrollToBottom();
+			}else{
+				$('#noRulesWarning').show();
 			}
 		},
 		
