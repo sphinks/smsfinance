@@ -7,7 +7,5 @@
     <icon src="icon.png"/>
     <name>SmsFinance</name>
     <tizen:privilege name="http://tizen.org/privilege/messaging.read"/>
-    <tizen:privilege name="http://tizen.org/privilege/messaging.write"/>
-    <tizen:privilege name="http://tizen.org/privilege/contact.read"/>
     <tizen:setting screen-orientation="portrait" context-menu="enable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
 </widget>

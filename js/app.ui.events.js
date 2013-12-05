@@ -84,8 +84,9 @@ function UiEvents(parent) {
 
 			document.addEventListener('tizenhwkey', function (e) {
 				if (e.keyName === 'back') {
-					tizen.application.getCurrentApplication().exit();
-					/*if ($.mobile.activePage.attr('id') === 'main') {
+					history.back();
+					/*tizen.application.getCurrentApplication().exit();
+					if ($.mobile.activePage.attr('id') === 'main') {
 						tizen.application.getCurrentApplication().exit();
 					} else if ($.mobile.activePage.attr('id') === 'chat') {
 						$.mobile.changePage('#main');
