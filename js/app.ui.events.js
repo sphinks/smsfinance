@@ -84,15 +84,14 @@ function UiEvents(parent) {
 
 			document.addEventListener('tizenhwkey', function (e) {
 				if (e.keyName === 'back') {
-					history.back();
-					/*tizen.application.getCurrentApplication().exit();
+					//tizen.application.getCurrentApplication().exit();
 					if ($.mobile.activePage.attr('id') === 'main') {
 						tizen.application.getCurrentApplication().exit();
-					} else if ($.mobile.activePage.attr('id') === 'chat') {
-						$.mobile.changePage('#main');
+					//} else if ($.mobile.activePage.attr('id') === 'chat') {
+						//$.mobile.changePage('#main');
 					} else {
 						history.back();
-					}*/
+					}
 				}
 			});
 			
